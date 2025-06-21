@@ -1,46 +1,6 @@
 import osmtogeojson from "osmtogeojson";
 import type { FeatureCollection, Point, Feature } from "geojson";
 
-const B_BOX = [34.64204, 135.37186, 34.65667, 135.39431];
-const QUERY = `
-[out:json][timeout:25];
-way["name"~"^コモンズ-.*$"](${B_BOX.join(",")})->.commonsWays;
-way["name"~"^(TEAM EXPO パビリオン|フューチャーライフエクスペリエンス)$"](${B_BOX.join(
-  ","
-)})->.futureLifeVillageWays;
-
-.commonsWays   map_to_area -> .commonsAreas;
-.futureLifeVillageWays map_to_area -> .futureLifeVillageAreas;
-(
-  nwr["amenity"~"^(exhibition_centre|theatre)$"](${B_BOX.join(",")});
-)->.allAmenities;
-
-(
-  nwr(area.commonsAreas)["amenity"~"^(exhibition_centre|theatre)$"];
-)->.insideCommons;
-
-(
-  nwr(area.futureLifeVillageAreas)["amenity"~"^(exhibition_centre|theatre)$"];
-)->.insideFutureLifeVillage;
-
-(
-  .allAmenities;
-  - .insideCommons;
-)->.allMinusInsideCommons;
-
-(
-  .allMinusInsideCommons;
-  - .insideFutureLifeVillage;
-)->.allMinusInsideCommonsMinusInsideFutureLifeVillage;
-
-(
-  .commonsWays;
-  .futureLifeVillageWays;
-  .allMinusInsideCommonsMinusInsideFutureLifeVillage;
-);
-out center;
-`;
-
 type GeoJsonNameProperties = {
   name: string;
   // NOTE: 本来は GeoJsonProperties 型。Vue Reactivity System のシリアライズでname:stringが消えてしまうのでこのように対応
@@ -50,9 +10,8 @@ type GeoJsonNameProperties = {
 
 export default defineEventHandler(
   async (): Promise<FeatureCollection<Point, GeoJsonNameProperties>> => {
-    const url = `https://overpass.private.coffee/api/interpreter?data=${encodeURIComponent(
-      QUERY
-    )}`;
+    const url =
+      "https://petaxa.github.io/expo-2025-waiting-time-json/overpass.json";
 
     const res = await fetch(url);
     const geojson = osmtogeojson(await res.json());

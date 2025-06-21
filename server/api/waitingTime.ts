@@ -8,7 +8,7 @@ export default defineEventHandler(
     }[]
   > => {
     const url =
-      "https://script.google.com/macros/s/AKfycbwhVUC7H64Eu2l6Lbw2Z2NUL_SeKg3UuTNA77oIPTae3wNRvtCdxo-zuejLOlUXXU_d/exec?route=all";
+      "https://petaxa.github.io/expo-2025-waiting-time-json/waiting-time.json";
     const res = await fetch(url);
     const json = await res.json();
     return json.data;
