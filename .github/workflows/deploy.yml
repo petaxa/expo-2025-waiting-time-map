@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main # デプロイ対象ブランチ
+  workflow_dispatch:
 
 jobs:
   deploy:
