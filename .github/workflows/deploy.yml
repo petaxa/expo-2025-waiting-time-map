@@ -23,7 +23,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             # 作業ディレクトリへ
-            cd /home/tempest/Documents/expo-2025-waiting-map
+            cd /home/tempest/Documents/expo-2025-waiting-time-map
 
             # 最新コードを取得
             git fetch --all
