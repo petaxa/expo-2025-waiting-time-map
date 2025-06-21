@@ -19,33 +19,37 @@ const geojson = computed(() => {
       ...waitMap.get(String(f.id))
     }));
 })
-
-
 </script>
 
 <template>
   <div style="height:100vh; width:100vw">
     <LMap ref="map" :zoom :min-zoom :center :use-global-leaflet="false" :max-bounds :max-bounds-viscosity>
+      <!-- <LControl position="topright">
+        <UDropdownMenu :items="items" :content="{
+          align: 'end',
+          side: 'bottom',
+          sideOffset: 8
+        }" :ui="{
+          content: 'w-48'
+        }">
+          <UButton size="xl" icon="i-lucide-menu" color="neutral" variant="outline" />
+        </UDropdownMenu>
+      </LControl> -->
       <LTileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
         layer-type="base" name="OpenStreetMap" />
       <LMarker v-for="geo in geojson" :key="geo.id"
         :lat-lng="[geo.geometry.coordinates[1], geo.geometry.coordinates[0]]">
-        <LPopup>{{ `${geo.properties.name}\n${geo.waitTime}` }}</LPopup>
+        <LPopup :options="{ className: 'my-popup' }">
+          <div>
+            <p style="font-size: 0.8rem; margin: 0;">{{ `${geo.properties.name}` }}</p>
+            <p style="font-size: 1.2rem; margin: 0.5rem;">{{ `${geo.waitTime}` }}</p>
+          </div>
+        </LPopup>
         <LIcon :icon-url="getIconUrl(parseWaitTime(geo.waitTime ?? ''))" :icon-size="[30, 30]" />
       </LMarker>
     </LMap>
   </div>
 </template>
 
-<style>
-.leaflet-div-icon {
-  background: steelblue;
-  color: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: large;
-  text-align: center;
-  line-height: 21px;
-}
-</style>
+<style></style>
