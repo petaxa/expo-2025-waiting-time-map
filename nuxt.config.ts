@@ -62,6 +62,14 @@ export default defineNuxtConfig({
   },
   ssr: true,
 
+  scripts: {
+    registry: {
+      googleAnalytics: {
+        id: "G-3D821WGBN7",
+      },
+    },
+  },
+
   modules: [
     "@nuxt/eslint",
     "@nuxt/fonts",
