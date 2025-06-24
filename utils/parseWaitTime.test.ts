@@ -16,3 +16,8 @@ test("エラー は null にパースされる", () => {
   const result = parseWaitTime("エラー");
   expect(result).toBe(null);
 });
+
+test("空文字は null にパースされる", () => {
+  const result = parseWaitTime("");
+  expect(result).toBe(null);
+});
