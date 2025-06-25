@@ -71,6 +71,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    "nuxt-mcp",
     "@nuxt/eslint",
     "@nuxt/fonts",
     "@nuxt/icon",
