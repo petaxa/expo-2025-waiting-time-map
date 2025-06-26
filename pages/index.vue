@@ -1,6 +1,14 @@
 <script setup lang="ts">
 const { data: rowGeojson } = await useFetch("/api/overpass")
-const { data: waitingTime } = await useFetch("/api/waitingTime")
+const { data: waitingTime, execute: refetchWaitingTime } = await useFetch("/api/waitingTime", {
+  immediate: true,
+})
+
+useIntervalFn(() => {
+  console.log("refetch")
+  refetchWaitingTime()
+}, 60_000)
+
 const zoom = ref(17)
 const minZoom = 15
 const center = [34.648946, 135.384736]
