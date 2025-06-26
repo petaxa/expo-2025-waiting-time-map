@@ -5,7 +5,6 @@ const { data: waitingTime, execute: refetchWaitingTime } = await useFetch("/api/
 })
 
 useIntervalFn(() => {
-  console.log("refetch")
   refetchWaitingTime()
 }, 60_000)
 
