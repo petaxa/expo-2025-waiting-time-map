@@ -80,6 +80,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxtjs/leaflet",
     "@nuxt/test-utils/module",
+    "@vueuse/nuxt",
   ],
   css: ["~/assets/css/main.css"],
   vite: {
